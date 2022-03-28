@@ -11,7 +11,7 @@ export const getImageUrl = (identifier: string): string =>
  * @param filters strings array with keys to filter data
  * @returns
  */
-export const getFilterQuery = (filters: string[]) => {
+export const getFilterQuery = (filters: string[], query?: string) => {
   const getConditions = () =>
     filters.map((filter) => ({
       match: {
@@ -19,6 +19,7 @@ export const getFilterQuery = (filters: string[]) => {
       },
     }));
   const getQueryBase = (conditions: object[]) => ({
+    q: query || '',
     query: {
       bool: {
         must: [
