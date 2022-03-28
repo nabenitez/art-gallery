@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['www.unfe.org', 'www.artic.edu', 'i.pinimg.com'],
+    domains: ['www.unfe.org', 'www.artic.edu', 'www.laborum.cl'],
   },
 };
 
