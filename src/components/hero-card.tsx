@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -15,21 +15,17 @@ import useImageError from '../../src/hooks/use-image-error';
 interface IHeroCardProps {
   id: string;
   title: string;
-  description: string | undefined;
+  artistDisplay: string;
   image: string;
   fetching: boolean;
   categories: string[];
 }
 
-const defaultValues = {
-  description: "Doesn't have a description.",
-};
-
 /** Render data about an art work in Card format. Also allow dynamic routing*/
 const HeroCard = ({
-  id,
-  title,
-  description = defaultValues.description,
+  id = '',
+  title = '',
+  artistDisplay = '',
   image,
   fetching,
   categories,
@@ -68,8 +64,13 @@ const HeroCard = ({
           >
             {title}
           </Typography>
-          <Typography noWrap variant="body2" color="text.secondary">
-            {description}
+          <Typography
+            sx={{ h: 20 }}
+            noWrap
+            variant="body2"
+            color="text.secondary"
+          >
+            {artistDisplay}
           </Typography>
           <Divider variant="middle" sx={{ mt: 2 }} />
           <Stack

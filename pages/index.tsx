@@ -16,6 +16,7 @@ type ArtWork = {
   title: string;
   image_id: string;
   exhibition_history: string;
+  artist_display: string;
   category_titles: string[];
 };
 
@@ -79,7 +80,7 @@ const Home: NextPage = () => {
                     id={artWork.id}
                     fetching={isFetching}
                     title={artWork.title}
-                    description={artWork.exhibition_history || undefined}
+                    artistDisplay={artWork.artist_display}
                     image={getImageUrl(artWork.image_id)}
                     categories={artWork.category_titles}
                   />
