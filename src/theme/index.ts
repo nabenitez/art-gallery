@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+const secondaryMain = '#ff452b';
 
 const theme = createTheme({
   palette: {
@@ -6,7 +7,18 @@ const theme = createTheme({
       main: '#ffffff',
     },
     secondary: {
-      main: '#ff452b',
+      main: secondaryMain,
+    },
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: secondaryMain,
+          },
+        },
+      },
     },
   },
 });
