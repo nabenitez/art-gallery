@@ -19,7 +19,9 @@ export const searchArtWorks = async (query: string, page: number = 1) => {
 };
 
 export const filterArtWorks = async (query: string, page: number = 1) => {
-  const { data } = await axiosClient.get(`/search?q=${query}?page=${page}`);
+  const { data } = await axiosClient.get(
+    `/search?page=${page}&limit=12&fields=id,title,image_id,exhibition_history,category_titles&params=${query}`,
+  );
   return data;
 };
 
