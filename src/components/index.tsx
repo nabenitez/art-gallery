@@ -5,3 +5,4 @@ export { default as NavBar } from './navbar';
 export { default as SearchField } from './searchfield';
 export { default as DetailCard } from './detail-card';
 export { default as ErrorScreen } from './error-screen';
+export { default as FiltersAutocomplete } from './filters-autocomplete';
