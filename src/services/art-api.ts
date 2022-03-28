@@ -12,15 +12,17 @@ export const fetchArtWorks = async (page: number = 1) => {
 };
 
 export const searchArtWorks = async (query: string, page: number = 1) => {
+  const fields =
+    'id,title,image_id,exhibition_history,category_titles,artist_display';
   const { data } = await axiosClient.get(
-    `/search?q=${query}?page=${page}&limit=12&fields=id,title,image_id,exhibition_history,category_titles`,
+    `/search?q=${query}?page=${page}&limit=12&fields=${fields}`,
   );
   return data;
 };
 
 export const filterArtWorks = async (query: string, page: number = 1) => {
   const { data } = await axiosClient.get(
-    `/search?page=${page}&limit=12&fields=id,title,image_id,exhibition_history,category_titles&params=${query}`,
+    `/search?page=${page}&limit=12&fields=id,title,image_id,exhibition_history,category_titles,artist_display&params=${query}`,
   );
   return data;
 };
