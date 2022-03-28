@@ -19,7 +19,12 @@ const useArtWorks = () => {
     useQuery(
       ['works', page, filters, debouncedSearch],
       async () => {
-        if (searchText) {
+        if (searchText && filters.length > 0) {
+          return await filterArtWorks(
+            getFilterQuery(filters, searchText),
+            page,
+          );
+        } else if (searchText) {
           return await searchArtWorks(searchText, page);
         } else if (filters.length > 0) {
           return await filterArtWorks(getFilterQuery(filters), page);
