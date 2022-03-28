@@ -3,14 +3,20 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination } from '@mui/material';
 import useDebounce from '../src/hooks/use-debounce';
+import useFilters from '../src/hooks/use-filters';
 import { useQuery, useQueryClient } from 'react-query';
-import { fetchArtWorks, searchArtWorks } from '../src/services/art-api';
-import { getImageUrl } from '../src/utils/helpers';
+import {
+  fetchArtWorks,
+  searchArtWorks,
+  filterArtWorks,
+} from '../src/services/art-api';
+import { getImageUrl, getFilterQuery } from '../src/utils/helpers';
 import {
   ErrorScreen,
   HeroCard,
   LoadingScreen,
   SearchField,
+  FiltersAutocomplete,
 } from '../src/components';
 
 type ArtWork = {
@@ -21,23 +27,37 @@ type ArtWork = {
   category_titles: string[];
 };
 
+const filterLabels = [
+  'Painting',
+  'Print',
+  'Drawing and Watercolor',
+  'Sculpture',
+  'Mask',
+  'Textile',
+  'Miniature',
+];
+
 const Home: NextPage = () => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
   const debouncedSearch = useDebounce(searchText, 500);
+  const { filters, handleOnChangeFilters } = useFilters();
+
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useQuery(
       ['works', page, filters, debouncedSearch],
       async () => {
         if (searchText) {
           return await searchArtWorks(searchText, page);
+        } else if (filters.length > 0) {
+          return await filterArtWorks(getFilterQuery(filters), page);
         }
         return await fetchArtWorks(page);
       },
       {
         keepPreviousData: true,
+        retry: 1,
       },
     );
 
@@ -48,7 +68,7 @@ const Home: NextPage = () => {
   //Pre fetch next page based on react-query docs
   useEffect(() => {
     if (data?.pagination.next_url) {
-      queryClient.prefetchQuery(['projects', page + 1], () =>
+      queryClient.prefetchQuery(['works', page + 1], () =>
         fetchArtWorks(page + 1),
       );
     }
@@ -75,6 +95,12 @@ const Home: NextPage = () => {
                 searchText={searchText}
                 isFetching={isFetching}
                 setSearchText={setSearchText}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FiltersAutocomplete
+                options={filterLabels}
+                onChange={handleOnChangeFilters}
               />
             </Grid>
           </Grid>
