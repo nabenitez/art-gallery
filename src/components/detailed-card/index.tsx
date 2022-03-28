@@ -31,23 +31,25 @@ const DetailedCard = ({
   const { imgError, handleImgError } = useImageError();
   return (
     <Paper sx={{ borderRadius: 2 }} elevation={3}>
-      <Box sx={{ p: 2 }}>
-        <Image
-          style={{
-            borderRadius: 8,
-          }}
-          src={
-            imgError
-              ? 'https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png'
-              : image
-          }
-          alt="Picture of the author"
-          onError={handleImgError}
-          width={1200}
-          height={600}
-          layout="responsive"
-        />
-        <DetailedTable items={items} />
+      <Box sx={{ p: 1 }}>
+        <Box sx={{ mx: 4, mt: 2 }}>
+          <Image
+            style={{
+              borderRadius: 8,
+            }}
+            src={
+              imgError
+                ? 'https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png'
+                : image
+            }
+            alt="Picture of the author"
+            onError={handleImgError}
+            width={1200}
+            height={600}
+            layout="responsive"
+          />
+          <DetailedTable items={items} />
+        </Box>
       </Box>
     </Paper>
   );
