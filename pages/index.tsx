@@ -1,16 +1,8 @@
-import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination } from '@mui/material';
-import useDebounce from '../src/hooks/use-debounce';
-import useFilters from '../src/hooks/use-filters';
-import { useQuery, useQueryClient } from 'react-query';
-import {
-  fetchArtWorks,
-  searchArtWorks,
-  filterArtWorks,
-} from '../src/services/art-api';
-import { getImageUrl, getFilterQuery } from '../src/utils/helpers';
+import useArtWorks from '../src/hooks/use-art-works';
+import { getImageUrl } from '../src/utils/helpers';
 import {
   ErrorScreen,
   HeroCard,
@@ -38,41 +30,16 @@ const filterLabels = [
 ];
 
 const Home: NextPage = () => {
-  const queryClient = useQueryClient();
-  const [page, setPage] = useState(1);
-  const [searchText, setSearchText] = useState('');
-  const debouncedSearch = useDebounce(searchText, 500);
-  const { filters, handleOnChangeFilters } = useFilters();
-
-  const { isLoading, isError, error, data, isFetching, isPreviousData } =
-    useQuery(
-      ['works', page, filters, debouncedSearch],
-      async () => {
-        if (searchText) {
-          return await searchArtWorks(searchText, page);
-        } else if (filters.length > 0) {
-          return await filterArtWorks(getFilterQuery(filters), page);
-        }
-        return await fetchArtWorks(page);
-      },
-      {
-        keepPreviousData: true,
-        retry: 1,
-      },
-    );
-
-  const handlePageChange = (_event: any, page: number) => {
-    if (!isPreviousData) setPage(page);
-  };
-
-  //Pre fetch next page based on react-query docs
-  useEffect(() => {
-    if (data?.pagination.next_url) {
-      queryClient.prefetchQuery(['works', page + 1], () =>
-        fetchArtWorks(page + 1),
-      );
-    }
-  }, [data, page, queryClient]);
+  const {
+    isLoading,
+    isError,
+    data,
+    isFetching,
+    searchText,
+    setSearchText,
+    handleOnChangeFilters,
+    handlePageChange,
+  } = useArtWorks();
 
   if (isError) return <ErrorScreen />;
   if (isLoading) return <LoadingScreen />;
