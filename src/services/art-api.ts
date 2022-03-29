@@ -3,7 +3,7 @@ const API_URL: string = process.env.NEXT_PUBLIC_ART_API_URL;
 
 const axiosClient = axios.create({
   baseURL: API_URL,
-  timeout: 1000,
+  timeout: 10 * 1000,
 });
 
 export const fetchArtWorks = async (page: number = 1) => {
