@@ -28,9 +28,11 @@ const NavBar = () => {
           >
             Art Gallery
           </Typography>
-          <IconButton color="secondary" onClick={handleOnClick}>
-            <ViewComfyIcon />
-          </IconButton>
+          {router.pathname !== '/' && (
+            <IconButton color="secondary" onClick={handleOnClick}>
+              <ViewComfyIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
