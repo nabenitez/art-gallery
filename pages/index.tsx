@@ -91,6 +91,7 @@ const Home: NextPage = () => {
           </Grid>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
             <Pagination
+              disabled={isFetching}
               count={data.pagination.total_pages}
               color="secondary"
               onChange={handlePageChange}
