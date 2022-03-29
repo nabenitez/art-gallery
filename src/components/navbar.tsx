@@ -1,4 +1,5 @@
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import { useRouter } from 'next/router';
 
 import React from 'react';
@@ -22,10 +23,14 @@ const NavBar = () => {
               '&:hover': {
                 cursor: 'pointer',
               },
+              flexGrow: 1,
             }}
           >
             Art Gallery
           </Typography>
+          <IconButton color="secondary" onClick={handleOnClick}>
+            <ViewComfyIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
