@@ -11,18 +11,11 @@ export const fetchArtWorks = async (page: number = 1) => {
   return data;
 };
 
-export const searchArtWorks = async (query: string, page: number = 1) => {
+export const queryArtWorks = async (query: string, page: number = 1) => {
   const fields =
     'id,title,image_id,exhibition_history,category_titles,artist_display';
   const { data } = await axiosClient.get(
-    `/search?q=${query}?page=${page}&limit=12&fields=${fields}`,
-  );
-  return data;
-};
-
-export const filterArtWorks = async (query: string, page: number = 1) => {
-  const { data } = await axiosClient.get(
-    `/search?page=${page}&limit=12&fields=id,title,image_id,exhibition_history,category_titles,artist_display&params=${query}`,
+    `/search?params=${query}&page=${page}&limit=12&fields=${fields}`,
   );
   return data;
 };

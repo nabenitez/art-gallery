@@ -11,7 +11,7 @@ export const getImageUrl = (identifier: string): string =>
  * @param filters strings array with keys to filter data
  * @returns
  */
-export const getFilterQuery = (filters: string[], query?: string) => {
+export const getArtworksParsedQuery = (filters: string[], query?: string) => {
   const getConditions = () =>
     filters.map((filter) => ({
       match: {

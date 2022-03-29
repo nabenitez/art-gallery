@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react';
 import useDebounce from './use-debounce';
-import {
-  fetchArtWorks,
-  searchArtWorks,
-  filterArtWorks,
-} from '../services/art-api';
+import { fetchArtWorks, queryArtWorks } from '../services/art-api';
 import useFilters from '../hooks/use-filters';
 import { useQuery, useQueryClient } from 'react-query';
-import { getFilterQuery } from '../utils/helpers';
+import { getArtworksParsedQuery } from '../utils/helpers';
 
 const useArtWorks = () => {
   const [page, setPage] = useState(1);
@@ -19,21 +15,20 @@ const useArtWorks = () => {
     useQuery(
       ['works', page, filters, debouncedSearch],
       async () => {
-        if (searchText && filters.length > 0) {
-          return await filterArtWorks(
-            getFilterQuery(filters, searchText),
+        if (searchText || filters.length > 0) {
+          const result = await queryArtWorks(
+            getArtworksParsedQuery(filters, searchText),
             page,
           );
-        } else if (searchText) {
-          return await searchArtWorks(searchText, page);
-        } else if (filters.length > 0) {
-          return await filterArtWorks(getFilterQuery(filters), page);
+          if (page > result.pagination.total_pages) setPage(1);
+          return result;
         }
         return await fetchArtWorks(page);
       },
       {
         keepPreviousData: true,
         retry: 1,
+        refetchOnWindowFocus: false,
       },
     );
 
