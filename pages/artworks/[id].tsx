@@ -12,7 +12,7 @@ const ArtWorkDetail: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Art Gallery</title>
+        <title>{data.data.title} | Art Gallery</title>
       </Head>
       <Box
         component="main"
