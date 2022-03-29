@@ -9,6 +9,7 @@ import {
   LoadingScreen,
   SearchField,
   FiltersAutocomplete,
+  ScrollToTopButton,
 } from '../src/components';
 
 type ArtWork = {
@@ -96,6 +97,7 @@ const Home: NextPage = () => {
             />
           </Box>
         </Container>
+        <ScrollToTopButton />
       </Box>
     </>
   );
