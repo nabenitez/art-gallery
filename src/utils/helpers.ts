@@ -36,3 +36,15 @@ export const getFilterQuery = (filters: string[], query?: string) => {
   const composedQuery = getQueryBase(getConditions());
   return encodeURIComponent(JSON.stringify(composedQuery));
 };
+
+// based on https://github.com/HermanNygaard/react-scroll-to-top/blob/master/src/index.tsx
+export const scrollToTop = (smooth: boolean = false) => {
+  if (smooth) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  } else {
+    document.documentElement.scrollTop = 0;
+  }
+};
