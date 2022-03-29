@@ -40,6 +40,7 @@ const Home: NextPage = () => {
     searchText,
     setSearchText,
     handleOnChangeFilters,
+    page,
     handlePageChange,
   } = useArtWorks();
 
@@ -92,6 +93,7 @@ const Home: NextPage = () => {
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
             <Pagination
               disabled={isFetching}
+              page={page}
               count={data.pagination.total_pages}
               color="secondary"
               onChange={handlePageChange}
