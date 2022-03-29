@@ -33,6 +33,7 @@ function MyApp({
     <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="icon" type="image/jpg" sizes="32x32" href="/favicon.jpg" />
       </Head>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
