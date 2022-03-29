@@ -6,3 +6,4 @@ export { default as SearchField } from './searchfield';
 export { default as DetailedCard } from './detailed-card';
 export { default as ErrorScreen } from './error-screen';
 export { default as FiltersAutocomplete } from './filters-autocomplete';
+export { default as ScrollToTopButton } from './scroll-to-top-button';
